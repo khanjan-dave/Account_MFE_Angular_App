@@ -1,0 +1,52 @@
+<div class="login-page">
+  <div class="login-card">
+    <h1 class="login-card__title">Sign In</h1>
+    <p class="login-card__subtitle">Access your account</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-field">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          placeholder="Enter your username"
+          autocomplete="username"
+        />
+        @if (username?.invalid && username?.touched) {
+          <span class="form-error">Username is required (min 3 characters)</span>
+        }
+      </div>
+
+      <div class="form-field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+        />
+        @if (password?.invalid && password?.touched) {
+          <span class="form-error">Password is required (min 6 characters)</span>
+        }
+      </div>
+
+      @if (error$ | async; as error) {
+        <div class="login-form__error-banner">{{ error }}</div>
+      }
+
+      <button
+        type="submit"
+        class="login-form__submit"
+        [disabled]="(loading$ | async) || loginForm.invalid"
+      >
+        @if (loading$ | async) {
+          Signing in...
+        } @else {
+          Sign In
+        }
+      </button>
+    </form>
+  </div>
+</div>
