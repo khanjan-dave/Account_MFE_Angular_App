@@ -1,0 +1,31 @@
+<div class="dashboard-page">
+  @if (user$ | async; as user) {
+    <div class="dashboard-card">
+      <div class="dashboard-card__header">
+        <h1>Hi, {{ user.firstName }}</h1>
+        <div class="header-actions">
+          <button class="icon-btn" (click)="goToProfile()">My Account</button>
+          <button class="icon-btn" (click)="onLogout()">Logout</button>
+        </div>
+      </div>
+
+      <div class="dashboard-card__account-info">
+        <span class="account-number">{{ user.accountNumber | maskAccount }}</span>
+      </div>
+
+      <div class="dashboard-card__balance">
+        <span class="balance-label">Available Balance</span>
+        <span class="balance-amount">${{ user.balance | number: '1.2-2' }}</span>
+      </div>
+
+      <div class="dashboard-card__actions">
+        <button class="action-btn action-btn--primary" (click)="goToTransfer()">
+          Transfer Money
+        </button>
+        <button class="action-btn" (click)="goToTransfer()">Pay a Bill</button>
+      </div>
+    </div>
+  } @else {
+    <div class="loading-state">Loading your account...</div>
+  }
+</div>
