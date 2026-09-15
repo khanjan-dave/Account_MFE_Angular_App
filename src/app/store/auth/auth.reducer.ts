@@ -2,10 +2,13 @@ import { createReducer, on } from '@ngrx/store';
 import { AuthState } from '../../core/models/user.model';
 import { AuthActions } from './auth.actions';
 
+const existingToken =
+  typeof localStorage !== 'undefined' ? localStorage.getItem('auth_token') : null;
+
 export const initialState: AuthState = {
   user: null,
-  token: null,
-  isAuthenticated: false,
+  token: existingToken,
+  isAuthenticated: !!existingToken,
   loading: false,
   error: null,
 };
